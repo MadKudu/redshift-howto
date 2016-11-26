@@ -2,20 +2,33 @@
 
 ## List longest running queries
 
-```SQL
+```sql
 SELECT
-      duration / (60 * 1000 * 1000) as duration_minutes,
+      DATEDIFF(minutes, starttime, GETDATE()) AS duration_minutes,
       *
 FROM
       STV_RECENTS
 WHERE
       status = 'Running'
 ORDER BY
-      starttime ASC;
+      starttime ASC
+;
 ```
 
 ## Kill a query by PID
 
-```SQL
+```sql
 SELECT PG_CANCEL_BACKEND([pid)
 ```
+
+## Get pids of running queries for a given user
+
+```sql
+SELECT DISTINCT
+      pid
+FROM
+      STV_RECENTS
+WHERE
+      status = 'Running'
+      AND user_name = 'xxx'
+;
