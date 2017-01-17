@@ -18,7 +18,7 @@ ORDER BY
 ## Kill a query by PID
 
 ```sql
-SELECT PG_CANCEL_BACKEND([pid)
+SELECT PG_CANCEL_BACKEND(pid)
 ```
 
 ## Get pids of running queries for a given user
