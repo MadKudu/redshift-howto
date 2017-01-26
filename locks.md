@@ -3,7 +3,6 @@
 ## See current locks
 
 ```SQL
-
 SELECT
       t.schema,
       t.table AS table_locked,
