@@ -6,7 +6,7 @@
 SELECT
       DATEDIFF(minutes, starttime, GETDATE()) AS duration_minutes,
       *,
-      'PG_CANCEL_BACKEND(' || pid || ')'
+      'SELECT PG_CANCEL_BACKEND(' || pid || ');'
 FROM
       STV_RECENTS
 WHERE
