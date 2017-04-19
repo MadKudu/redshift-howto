@@ -25,3 +25,20 @@ ORDER BY
       t.table
 ;
 ```
+
+```SQL
+SELECT
+      t.schema,
+      t.table AS table_locked,
+      l.*
+FROM
+      SVV_TRANSACTIONS AS l
+INNER JOIN
+      SVV_TABLE_INFO AS t
+      ON l.relation = t.table_id
+ORDER BY
+      t.schema,
+      t.table,
+      l.granted
+;
+```
