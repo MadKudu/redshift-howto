@@ -42,3 +42,20 @@ ORDER BY
       l.granted
 ;
 ```
+
+## See past lock conflicts
+
+```SQL
+SELECT
+      l.*,
+      t.schema,
+      t.table
+FROM
+      STL_TR_CONFLICT AS l
+INNER JOIN
+      SVV_TABLE_INFO AS t
+      ON l.table_id = t.table_id
+ORDER BY
+      xact_start_ts DESC
+;
+```
