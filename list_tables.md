@@ -75,3 +75,19 @@ WHERE
       AND pg_class.relname NOT LIKE '%mk_%'
 ;
 ```
+
+## Delete tables for a tenant
+
+```
+SELECT
+      'DROP TABLE ' ||  pg_namespace.nspname || '.' || pg_class.relname || ';'
+FROM
+			pg_class
+INNER JOIN
+			pg_namespace
+			ON pg_class.relnamespace = pg_namespace.oid
+WHERE
+      pg_namespace.nspname IN ('mk_3771_1')
+      AND pg_class.relname NOT LIKE '%mk_%'
+;
+```
