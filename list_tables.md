@@ -59,3 +59,19 @@ WHERE
       tablename = 'prototype_salesforce_lead_changes'
       AND schemaname = 'mk_3311_1';
 ```
+
+## Count number of tables
+
+```SQL
+SELECT 
+      COUNT(DISTINCT pg_namespace.nspname || '.' || pg_class.relname)
+FROM
+			pg_class
+INNER JOIN
+			pg_namespace
+			ON pg_class.relnamespace = pg_namespace.oid
+WHERE
+      pg_namespace.nspname LIKE '%mk_%'
+      AND pg_class.relname NOT LIKE '%mk_%'
+;
+```
