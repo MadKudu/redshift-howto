@@ -15,10 +15,11 @@ FROM
 ## Disk space by table
 ```SQL
 SELECT
-      -- trim(pgdb.datname) as database,
+      trim(pgdb.datname) as database,
       trim(pgn.nspname) AS schema,
       trim(tr.name) AS table,
       ts.mbytes,
+      ROUND(ts.mbytes::FLOAT / (SELECT count(*) AS mbytes FROM stv_blocklist)::FLOAT, 2)*100 AS pct,
       tr.rows
 FROM
       (
