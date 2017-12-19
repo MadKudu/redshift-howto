@@ -1,4 +1,8 @@
-# Compression and encoding
+# Performance
+
+https://docs.aws.amazon.com/redshift/latest/dg/diagnostic-queries-for-query-tuning.html
+
+## Compression and encoding
 
 ## Check encoding / keys of a table
 
