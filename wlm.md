@@ -50,6 +50,10 @@ group by service_class
 order by service_class;
 ```
 
+## See max concurrency for a queue
+
+https://github.com/awslabs/amazon-redshift-utils/blob/master/src/AdminScripts/wlm_apex.sql
+
 # More resources
 
 https://docs.aws.amazon.com/redshift/latest/dg/r_STL_WLM_QUERY.html
