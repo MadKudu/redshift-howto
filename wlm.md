@@ -33,6 +33,7 @@ and w.total_queue_Time > 0  and w.userid >1
 and q.starttime >= dateadd(day, -7, current_Date)
 order by w.total_queue_time desc, w.queue_start_time desc limit 35;
 ```
+https://github.com/awslabs/amazon-redshift-utils/blob/master/src/AdminScripts/queuing_queries.sql
 
 ## See average wait time per queue
 
