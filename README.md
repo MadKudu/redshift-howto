@@ -9,3 +9,4 @@ A collection of tips and tools to manage your Redshift clusters
 - [List tables and columns](./list_tables.md)
 - [Managing locks](./locks.md)
 - [Managing WLM](./wlm.md)
+- [Managing Users](./user.md)
