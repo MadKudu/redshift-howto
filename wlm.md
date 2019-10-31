@@ -38,16 +38,18 @@ https://github.com/awslabs/amazon-redshift-utils/blob/master/src/AdminScripts/qu
 ## See average wait time per queue
 
 ```SQL
-select service_class as svc_class, count(*),
-avg(datediff(seconds, queue_start_time, queue_end_time)) as avg_queue_time,
-max(datediff(seconds, queue_start_time, queue_end_time)) as max_queue_time,
-sum(datediff(seconds, queue_start_time, queue_end_time)) as sum_queue_time,
-avg(datediff(seconds, exec_start_time, exec_end_time )) as avg_exec_time
+select
+service_class,
+final_state,
+count(*),
+avg(total_exec_time) / 1000000 AS avg_exec_time_s,
+avg(total_queue_time) / 1000000 AS avg_queue_time_s,
+percentile_cont(0.9) within group (order by total_queue_time) / 1000000 AS ninetieth_queue_time_s
 from stl_wlm_query
-where service_class > 4
-and queue_start_Time >= dateadd(day, -7, current_Date)
-group by service_class
-order by service_class;
+where userid >= 100
+-- and queue_start_time >= dateadd(hour, -1, current_date)
+and queue_start_time >= dateadd(day, -1, current_date)
+group by 1,2 order by 1,2;
 ```
 
 ## See max concurrency for a queue
