@@ -14,19 +14,26 @@ It can't get removed if it still owns anything, so here is how to generate SQL s
 
 ```sql
 SELECT
-	o.cmd 
+	o.cmd
 FROM (
 	SELECT
 		'ALTER SCHEMA ' || nspname || ' OWNER TO data_workers;' AS cmd,
-		pg_get_userbyid(nspowner) as owner 
-	FROM pg_namespace 
-	
-	UNION ALL 
+		pg_get_userbyid(nspowner) as owner
+	FROM pg_namespace
+
+	UNION ALL
 
 	SELECT
-		'ALTER TABLE ' || tablename || ' OWNER TO data_workers;' AS cmd,
+		'ALTER TABLE ' || schemaname || '.' || tablename || ' OWNER TO data_workers;' AS cmd,
 		tableowner as owner
-	FROM pg_tables 
+	FROM pg_tables
+
+	UNION ALL
+
+	SELECT
+		'ALTER TABLE ' || schemaname || '.' || viewname || ' OWNER TO data_workers;' AS cmd,
+		viewowner as owner
+	FROM pg_views
 
 	UNION ALL
 
@@ -34,14 +41,14 @@ FROM (
 		'ALTER PROCEDURE ' || proname || ' OWNER TO data_workers;' AS cmd,
 		pg_get_userbyid(proowner) as owner
 	FROM pg_proc
-	
+
 	UNION ALL
 
 	SELECT
 		'ALTER DATABASE ' || datname || ' OWNER TO data_workers;' AS cmd,
 		pg_get_userbyid(datdba) as owner
 	FROM pg_database
-) o 
+) o
 WHERE o.owner = '{user to check}';
 ```
 
