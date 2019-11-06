@@ -60,7 +60,6 @@ ORDER BY
 SELECT
       -- trim(pgdb.datname) as database,
       trim(pgn.nspname) AS schema,
-      trim(tr.name) AS table,
       SUM(ts.mbytes) AS mbytes,
       SUM(tr.rows) AS rows
 FROM
@@ -93,7 +92,8 @@ JOIN
       ) AS ts
       ON tr.id = ts.tbl
 GROUP BY
-      trim(pgn.nspname), trim(tr.name)
+      trim(pgn.nspname)
 ORDER BY
       SUM(ts.mbytes) DESC
+;
 ```
